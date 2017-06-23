@@ -18,7 +18,8 @@
     "autoload": {
         "psr-4": {
             "FormStack\\": "src/formstack/",
-            "FSExceptions\\": "src/exceptions/"
+            "FSExceptions\\": "src/exceptions/",
+            "Config\\": "config/"
         }
     },
     "autoload-dev": {

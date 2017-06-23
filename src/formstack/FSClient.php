@@ -9,6 +9,7 @@
 namespace FormStack;
 
 
+use Config\ConfigHelper;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 
@@ -22,8 +23,12 @@ class FSClient
 
     public function __construct($token = null, $baseUrl = null, $xmlResponseType = false) {
 
-        if(is_null($token)) $token = config("formstack.access_token");
-        if(is_null($baseUrl)) $baseUrl = config("formstack.base_url");
+        if(is_null($token)) {
+            $token = function_exists("config") ? config("formstack.access_token") : ConfigHelper::config()["access_token"];
+        }
+        if(is_null($baseUrl))  {
+            $baseUrl = function_exists("config") ? config("formstack.base_url") : ConfigHelper::config()["base_url"];
+        }
 
         $this->token = $token;
         $this->baseUrl = $baseUrl;
@@ -49,8 +54,8 @@ class FSClient
 
 
     private function verifyTokenIsSet() {
-        if(is_null($this->token))
-            throw new TokeNotSetException("Formstack Access Token Not Set");
+        if(is_null($this->token) || is_null($this->baseUrl))
+            throw new TokeNotSetException("Formstack Access Token/Base Url Not Set in Config file [formstack.php]");
     }
 
     /**
