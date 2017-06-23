@@ -2,29 +2,14 @@ fstackapi_php
 =============
 This is a PHP wrapper for formstack's REST API v2. Compatible with Laravel.
 
+**Remember to star and watch for changes**
+
 Installation
 ============
-It is not yet on packagist. So first, add this to your composer.json file.
-If the section doesn't exist yet, you can create it.
+It is not yet on packagist. But you can clone the repo and use it.
+It follows the PSR-0 Namespace conventions.
 
-```json
-"require" : {
-	"seunmatt/fstackapi_php": "dev-master"
-},
-"repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/SeunMatt/fstackapi_php"
-        }
-	]
-```
-
-Add this to your list of ServiceProviders
-
-```php
-    FormStackServiceProvider::class,
-```
-
+Packagist - coming very soon.
 
 Usage
 =====
