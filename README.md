@@ -19,6 +19,12 @@ If the section doesn't exist yet, you can create it.
 	]
 ```
 
+Add this to your list of ServiceProviders
+
+```php
+    FormStackServiceProvider::class,
+```
+
 
 Usage
 =====
