@@ -8,14 +8,14 @@
             "email": "smatt382@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": ">=5.6.4",
+        "guzzlehttp/guzzle": "^6.2"
+    },
     "require-dev": {
         "phpunit/phpunit": "~5.7"
     },
     "autoload": {
-        "classmap": [
-            "database"
-        ],
         "psr-4": {
             "FormStack\\": "src/formstack/",
             "FSExceptions\\": "src/exceptions/"
