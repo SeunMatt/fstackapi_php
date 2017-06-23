@@ -11,7 +11,6 @@ namespace FormStack;
 
 use Config\ConfigHelper;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Log;
 
 class FSClient
 {

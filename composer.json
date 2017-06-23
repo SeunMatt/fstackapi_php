@@ -1,7 +1,8 @@
 {
-    "name": "smatt/fstackapi_php",
+    "name": "seunmatt/fstackapi_php",
     "description": "This is a PHP wrapper for formstack's REST API v2.",
     "license": "MIT",
+    "github": "https://github.com/SeunMatt/fstackapi_php",
     "authors": [
         {
             "name": "Seun Matt",
