@@ -12,7 +12,7 @@ namespace Config;
 class ConfigHelper {
 
     public static function config() {
-        return include "\"../../formstack.php\"";
+        return include "\"../../dev-formstack.php\"";
     }
 
 }
