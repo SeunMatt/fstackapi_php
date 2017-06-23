@@ -1,0 +1,29 @@
+{
+    "name": "smatt/fstackapi_php",
+    "description": "This is a PHP wrapper for formstack's REST API v2.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Seun Matt",
+            "email": "smatt382@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "~5.7"
+    },
+    "autoload": {
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "FormStack\\": "src/formstack/",
+            "FSExceptions\\": "src/exceptions/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
