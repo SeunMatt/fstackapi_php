@@ -12,11 +12,11 @@ If the section doesn't exist yet, you can create it.
 	"seunmatt/fstackapi_php": "dev-master"
 },
 "repositories": [
-    {
-        "type": "vcs",
-    	"url": "https://github.com/SeunMatt/fstackapi_php"
-	}
-	
+        {
+            "type": "vcs",
+            "url": "https://github.com/SeunMatt/fstackapi_php"
+        }
+	]
 ```
 
 
