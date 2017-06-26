@@ -36,6 +36,8 @@ Add the service provider in config/app.php
     FormStack\Providers\FSServiceProviders::class,
 ```
 
+run `php artisan vendor:publish` to publish the config file.
+
 Usage
 =====
 **Currently this repo is actively under development**
