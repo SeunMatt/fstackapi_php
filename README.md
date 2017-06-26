@@ -154,7 +154,6 @@ Seun Matt: on twitter [@SeunMatt2](https://twitter.com/SeunMatt2/)
 Contributing
 ============
 just create a PR with your update.
-
 **Remember to Star this repo and watch it for changes. Thank you**
  
 LICENSE
