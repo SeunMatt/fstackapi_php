@@ -6,12 +6,12 @@
  * Time: 05:19 PM
  */
 
-namespace Providers;
+namespace FormStack\Providers;
 
 
 use Illuminate\Support\ServiceProvider;
 
-class FormStackServiceProvider extends ServiceProvider {
+class FSServiceProvider extends ServiceProvider {
 
 
     public function boot()

@@ -21,7 +21,7 @@
         "psr-4": {
             "FormStack\\": "src/formstack/",
             "FSExceptions\\": "src/exceptions/",
-            "Providers\\": "src/providers/",
+            "FormStack\\Providers\\": "src/providers/",
             "Config\\": "src/config/"
         }
     },

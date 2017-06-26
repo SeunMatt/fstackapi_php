@@ -27,6 +27,14 @@ From Packagist
 --------------
 It is not yet on packagist - coming very soon.
 
+Laravel
+-------
+After installing the dependency. 
+Add the service provider in config/app.php
+
+ ```php
+    FormStack\Providers\FSServiceProviders::class,
+```
 
 Usage
 =====
