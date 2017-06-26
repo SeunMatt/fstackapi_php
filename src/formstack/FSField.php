@@ -68,9 +68,9 @@ class FSField extends FSClient {
     /*
      * This will delete the form field
      * */
-    public function delete($formId) {
-        $this->validateId($formId);
-        $uri = "field/".$formId;
+    public function delete($fieldId) {
+        $this->validateId($fieldId);
+        $uri = "field/".$fieldId;
         $response = $this->client->delete($uri);
         return json_decode($response->getBody(), true);
     }
