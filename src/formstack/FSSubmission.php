@@ -9,6 +9,8 @@
 namespace FormStack;
 
 
+use FSExceptions\FSException;
+
 class FSSubmission extends FSClient {
 
     public function __construct($token = null, $baseUrl = null, $xmlResponseType = false) {
@@ -33,6 +35,27 @@ class FSSubmission extends FSClient {
         return json_decode($response->getBody(), true);
     }
 
+    /*
+     * Get the details of a single submission
+     * */
+    public function get($formId) {
+        $this->validateId($formId);
+        $uri = "submission/".$formId;
+        $response = $this->client->get($uri);
+        return json_decode($response->getBody(), true);
+    }
+
+
+    /*
+     * Update a submission
+     * */
+    public function update($formId, $body) {
+        $this->validateId($formId);
+        $uri = "submission/".$formId;
+        $response = $this->client->put($uri, ["json" => $body]);
+        return json_decode($response->getBody(), true);
+    }
+
 
     /*
      * This add a new submission to a form
@@ -52,6 +75,14 @@ class FSSubmission extends FSClient {
         return json_decode($response->getBody(), true);
     }
 
-
+    /*
+     * This will delete the form
+     * */
+    public function delete($formId) {
+        $this->validateId($formId);
+        $uri = "submission/".$formId;
+        $response = $this->client->delete($uri);
+        return json_decode($response->getBody(), true);
+    }
 
 }

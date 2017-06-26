@@ -9,6 +9,7 @@
 namespace FormStack;
 
 
+use FSExceptions\FSException;
 use FSExceptions\TokeNotSetException;
 use Config\ConfigHelper;
 use GuzzleHttp\Client;
@@ -88,6 +89,9 @@ class FSClient
         $this->baseUrl = $baseUrl;
     }
 
-
-
+    public function validateId($formId) {
+        if(is_null($formId) || strlen($formId) <= 0) {
+            throw new FSException("The supplied form id should not be null and empty");
+        }
+    }
 }

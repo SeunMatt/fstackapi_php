@@ -10,6 +10,7 @@ namespace Tests;
 
 
 use FormStack\FSForm;
+use GuzzleHttp\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 class FSFormUnitTest extends TestCase{
