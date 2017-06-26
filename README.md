@@ -6,10 +6,27 @@ This is a PHP wrapper for formstack's REST API v2. Compatible with Laravel.
 
 Installation
 ============
-It is not yet on packagist. But you can clone the repo and use it.
-It follows the PSR-0 Namespace conventions.
 
-Packagist - coming very soon.
+From Github repo
+----------------
+Add this to your composer.json file and the run `composer update`
+
+```json
+    "require": {
+        "seunmatt/fstackapi_php": "dev-master"
+    },
+    "repositories": [
+            {
+                "type": "git",
+                "url": "https://github.com/SeunMatt/fstackapi_php.git"
+            }
+    ]
+```
+
+From Packagist
+--------------
+It is not yet on packagist - coming very soon.
+
 
 Usage
 =====
@@ -29,6 +46,37 @@ You can wrap the method calls in a `try...catch` block to catch:
 - `GuzzleHttp\Exception\RequestException`
 - `FSExceptions\FSException`
 - `FSExceptions\TokenNotSetException`
+
+Configuration
+-------------
+The configuration file is formstack.php and permits setting:
+the `access_token` and `base_url` that is used by the classes to communicate with the API
+  
+FormStack Client
+----------------
+`FSClient` is the superclass for all other classes in the package.
+
+It has a constructor that accepts optional parameters: 
+$token - The API Access token from Formstack dashboard,
+$baseUrl - The baseUrl of the formstack api. Default is "https://www.formstack.com/api/v2/"
+$xmlResponseType - a boolean indicating the response type to expect from the API. Default is `false`
+
+Other API Objects - Forms, Submissions, Fields, Webhooks, have classes that modelled them. Those classes
+ extends FSClient class and have the same constructor.
+ 
+So you can instantiate the FSForm class this way:
+
+```php
+$fsForm = new FSForm($token);
+
+//if you have set the access_token and base_url variable in the config file
+//you can just do this:
+
+$fsForm = new FSForm();
+
+``` 
+
+Same applies to other classes
 
 
 FormStack Form

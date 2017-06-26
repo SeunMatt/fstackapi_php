@@ -6,7 +6,7 @@
  * Date: 22/06/2017
  * Time: 04:27 PM
  */
-namespace App\Lib;
+namespace FSExceptions;
 
 class TokeNotSetException  extends \RuntimeException {
 
