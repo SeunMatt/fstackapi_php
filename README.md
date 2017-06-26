@@ -25,7 +25,7 @@ Add this to your composer.json file and the run `composer update`
 
 From Packagist
 --------------
-It is not yet on packagist - coming very soon.
+It is not yet on packagist - coming very soon
 
 Laravel
 -------
