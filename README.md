@@ -33,7 +33,7 @@ After installing the dependency.
 Add the service provider in config/app.php
 
  ```php
-    FormStack\Providers\FSServiceProviders::class,
+    FormStack\Providers\FSServiceProvider::class,
 ```
 
 run `php artisan vendor:publish` to publish the config file.
