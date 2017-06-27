@@ -12,7 +12,7 @@ use FormStack\FSFolder;
 
 class FSFolderUnitTest extends \PHPUnit_Framework_TestCase {
 
-    public function testFolder_whenNewFolderMethods_givenRequiredParams_thenPrintAPIResponse() {
+    public function testFolder_whenFolderMethods_givenRequiredParams_thenPrintAPIResponse() {
 
         $fsFolder = new FSFolder();
 

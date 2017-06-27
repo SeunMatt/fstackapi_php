@@ -22,7 +22,7 @@ class FSClient
     protected $client;
     protected $xmlResponseType;
 
-    public function __construct($token = null, $baseUrl = null, $xmlResponseType = false) {
+    protected function __construct($token = null, $baseUrl = null, $xmlResponseType = false) {
 
         if(is_null($token)) {
             $token = function_exists("config") ? config("formstack.access_token") : ConfigHelper::config()["access_token"];

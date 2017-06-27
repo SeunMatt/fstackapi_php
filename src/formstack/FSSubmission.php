@@ -38,9 +38,9 @@ class FSSubmission extends FSClient {
     /*
      * Get the details of a single submission
      * */
-    public function get($formId) {
-        $this->validateId($formId);
-        $uri = "submission/".$formId;
+    public function get($submissionId) {
+        $this->validateId($submissionId);
+        $uri = "submission/".$submissionId;
         $response = $this->client->get($uri);
         return json_decode($response->getBody(), true);
     }
@@ -49,9 +49,9 @@ class FSSubmission extends FSClient {
     /*
      * Update a submission
      * */
-    public function update($formId, $body) {
-        $this->validateId($formId);
-        $uri = "submission/".$formId;
+    public function update($submissionId, $body) {
+        $this->validateId($submissionId);
+        $uri = "submission/".$submissionId;
         $response = $this->client->put($uri, ["json" => $body]);
         return json_decode($response->getBody(), true);
     }
@@ -76,11 +76,11 @@ class FSSubmission extends FSClient {
     }
 
     /*
-     * This will delete the form
+     * This will delete the submission
      * */
-    public function delete($formId) {
-        $this->validateId($formId);
-        $uri = "submission/".$formId;
+    public function delete($submissionId) {
+        $this->validateId($submissionId);
+        $uri = "submission/".$submissionId;
         $response = $this->client->delete($uri);
         return json_decode($response->getBody(), true);
     }

@@ -12,7 +12,12 @@ namespace Config;
 class ConfigHelper {
 
     public static function config() {
-        return include "\"../../dev-formstack.php\"";
+        if(!file_exists(realpath("./formstack.php")) ) {
+            throw new \Exception("ERROR: config file [formstack.php] not found in package root's dir. 
+            \nFile is expected here in this dir:
+            ". realpath ( "."));
+        }
+        return include realpath("./formstack.php");
     }
 
 }

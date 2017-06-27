@@ -54,12 +54,12 @@ class FSField extends FSClient {
     /*
      * This will update the details of a field
      * */
-    public function update($formId, $param) {
-        $this->validateId($formId);
+    public function update($fieldId, $param) {
+        $this->validateId($fieldId);
         if(is_null($param) || !array_key_exists("field_type", $param) || !array_key_exists("label", $param)) {
             throw new FSException("The param supplied is missing required fields: 'field_type', 'label' ");
         }
-        $uri = "form/".$formId."/field";
+        $uri = "field/".$fieldId;
         $response = $this->client->put($uri, ["json" => $param]);
         return json_decode($response->getBody(), true);
     }

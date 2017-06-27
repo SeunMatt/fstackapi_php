@@ -1,6 +1,7 @@
 fstackapi_php
 =============
-This is a PHP wrapper for formstack's REST API v2. Compatible with Laravel.
+This is a convenient PHP wrapper for Formstack's REST API v2. 
+Compatible with Laravel.
 
 **Remember to star and watch for changes**
 
@@ -36,19 +37,31 @@ Add the service provider in config/app.php
     FormStack\Providers\FSServiceProvider::class,
 ```
 
-run `php artisan vendor:publish` to publish the config file.
+Run `php artisan vendor:publish` to publish the config file.
+The config file is `formstack.php` and will be in the laravel config folder.
+Set your access_token in the config file and proceed.
 
 Usage
 =====
-**Currently this repo is actively under development**
 
-The package is built around FormStack REST API (v2) and 
+The package is built around FormStack REST API (v2), 
 thus it is organized in a very simple and flexible way to use.
+It has different classes that models the elements of Formstack API.
 
-Response
---------
-Every API Response is decoded into an assoc array that is then return from
-each method.
+
+API Response
+------------
+
+Every API Response is decoded into an assoc array and returned from
+the caller. The responses are RAW API Response from Formstack; this facilitates flexibility and easy usage.
+
+Configuration
+-------------
+The configuration file is formstack.php and permits setting:
+the `access_token` and `base_url` that is used by the classes to communicate with the API.
+
+if you clone the repo or are using it outside of laravel, 
+
 
 Exceptions
 -----------
@@ -57,11 +70,49 @@ You can wrap the method calls in a `try...catch` block to catch:
 - `FSExceptions\FSException`
 - `FSExceptions\TokenNotSetException`
 
-Configuration
--------------
-The configuration file is formstack.php and permits setting:
-the `access_token` and `base_url` that is used by the classes to communicate with the API
-  
+Tests for Devs
+--------------
+`PHPUnit` is used for testing and the test files are located in tests dir.
+If you fork/clone the repo and will like to run the tests. 
+ 
+First create a dev-formstack.php at the root dir with the following content
+ 
+ ```php
+<?php
+ namespace Config;
+ 
+ return [
+ 
+     "access_token"=> "your-formstack-application-access-token",
+     "base_url" => "https://www.formstack.com/api/v2/"
+
+ ];
+ 
+ ?>
+ ```
+ 
+Since, It is from this file that the `ConfigHelper` will read the config token from by default.
+
+Alternatively, you can pass the token and base_url variable to the constructor during instantiation.
+You will have to manually modify the test code to achieve this:
+
+```php
+$token = "your-formstack-app-access-token";
+$baseUrl = "https://www.formstack.com/api/v2/";
+
+$fsForm = new FSForm($token, $baseUrl);
+$fsField = new FSField($token, $baseUrl);
+$fsSubmision = new FSSubmission($token, $baseUrl);
+$fsFolder = new FSFolder($token, $baseUrl);
+```
+
+Run the following command from the root dir to run the tests.
+
+```
+"./vendor/bin/phpunit"
+```
+
+
 FormStack Client
 ----------------
 `FSClient` is the superclass for all other classes in the package.
