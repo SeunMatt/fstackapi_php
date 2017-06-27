@@ -10,7 +10,6 @@ namespace FormStack;
 
 
 use FSExceptions\FSException;
-use FSExceptions\TokeNotSetException;
 use Config\ConfigHelper;
 use GuzzleHttp\Client;
 
@@ -56,7 +55,7 @@ class FSClient
 
     private function verifyTokenIsSet() {
         if(is_null($this->token) || is_null($this->baseUrl) || !preg_match("/.*\/{1}$/", $this->baseUrl))
-            throw new TokeNotSetException(
+            throw new FSException(
               "Formstack Access Token/Base Url Not Set in Config file [formstack.php]. Ensure the baseUrl ends with a forward slash '/'"
             );
     }

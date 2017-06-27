@@ -57,25 +57,15 @@ the caller. The responses are RAW API Response from Formstack; this facilitates 
 
 Configuration
 -------------
-The configuration file is formstack.php and permits setting:
-the `access_token` and `base_url` that is used by the classes to communicate with the API.
 
-if you clone the repo or are using it outside of laravel, 
+- If you are using this package in Laravel, just run `php artisan vendor:publish` to publish the config file `formstack.php`.
+As usual, it will be located in the config folder.
 
+In the config file, provide your value for `access_token`.  
+The `base_url` by default is set to that of API v2.
 
-Exceptions
------------
-You can wrap the method calls in a `try...catch` block to catch:
-- `GuzzleHttp\Exception\RequestException`
-- `FSExceptions\FSException`
-- `FSExceptions\TokenNotSetException`
-
-Tests for Devs
---------------
-`PHPUnit` is used for testing and the test files are located in tests dir.
-If you fork/clone the repo and will like to run the tests. 
- 
-First create a dev-formstack.php at the root dir with the following content
+- If you clone the repo or **are using it outside of laravel** then,
+create a formstack.php at the root dir of the package with the following content:
  
  ```php
 <?php
@@ -91,26 +81,48 @@ First create a dev-formstack.php at the root dir with the following content
  ?>
  ```
  
-Since, It is from this file that the `ConfigHelper` will read the config token from by default.
+It is from this file that the `ConfigHelper` class will read the config token from by default.
 
-Alternatively, you can pass the token and base_url variable to the constructor during instantiation.
-You will have to manually modify the test code to achieve this:
+If you don't want to use the config file,
+You can pass the $token and $baseUrl parameter to the Formstack objects during initialization:
 
 ```php
 $token = "your-formstack-app-access-token";
 $baseUrl = "https://www.formstack.com/api/v2/";
 
 $fsForm = new FSForm($token, $baseUrl);
+
 $fsField = new FSField($token, $baseUrl);
+
 $fsSubmision = new FSSubmission($token, $baseUrl);
+
 $fsFolder = new FSFolder($token, $baseUrl);
 ```
 
-Run the following command from the root dir to run the tests.
+Exceptions
+-----------
+You can wrap the method calls in a `try...catch` block to catch:
+- `GuzzleHttp\Exception\RequestException`
+- `FSExceptions\FSException`
+
+
+Tests for Devs
+--------------
+`PHPUnit` is used for testing and the test files are located in tests dir.
+If you fork/clone the repo and will like to run the tests. 
+
+First, ensure you have set up the config as specified above, then run the 
+following command from the root dir of the package to run the tests.
 
 ```
 "./vendor/bin/phpunit"
 ```
+
+
+FormStack Object Instantiation
+------------------------------
+
+
 
 
 FormStack Client
@@ -195,7 +207,7 @@ $resp = $fsSubmission->newSubmission($formId, $data);
 
 Reference
 =========
-- Formstack API v2 docs: [https://developers.formstack.com/docs/api-overview](https://developers.formstack.com/docs/api-overview)
+Formstack API v2 docs: [https://developers.formstack.com/docs/api-overview](https://developers.formstack.com/docs/api-overview)
  
  
 Contributors
