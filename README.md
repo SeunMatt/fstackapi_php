@@ -39,21 +39,22 @@ Add the service provider in config/app.php
 
 Run `php artisan vendor:publish` to publish the config file.
 The config file is `formstack.php` and will be in the laravel config folder.
-Set your access_token in the config file and proceed.
+Set your `access_token` in the config file and proceed.
 
 Usage
 =====
 
 The package is built around FormStack REST API (v2), 
 thus it is organized in a very simple and flexible way to use.
-It has different classes that models the elements of Formstack API.
+It has different classes that model the elements of Formstack API.
 
 
 API Response
 ------------
 
-Every API Response is decoded into an assoc array and returned from
-the caller. The responses are RAW API Response from Formstack; this facilitates flexibility and easy usage.
+Every JSON API Response is decoded into an assoc array and returned to
+the caller. 
+
 
 Configuration
 -------------
@@ -83,10 +84,35 @@ create a formstack.php at the root dir of the package with the following content
  
 It is from this file that the `ConfigHelper` class will read the config token from by default.
 
-If you don't want to use the config file,
-You can pass the $token and $baseUrl parameter to the Formstack objects during initialization:
+
+FormStack Object Instantiation
+------------------------------
+
+Create an instance of the Formstack object you want to work with and then you can call the methods
+on the instance:
 
 ```php
+//using a no-arg constructor for instatiation
+//assumes you have provided your access_token
+//and base_url in the config file
+
+
+$fsForm = new FSForm();
+
+$fsField = new FSField();
+
+$fsSubmision = new FSSubmission();
+
+$fsFolder = new FSFolder();
+```
+
+
+**If you don't want to use the config file,
+You can pass the `$token` and `$baseUrl` parameter to the Formstack objects during instantiation:**
+
+```php
+//initialization if no config file is provided
+
 $token = "your-formstack-app-access-token";
 $baseUrl = "https://www.formstack.com/api/v2/";
 
@@ -99,15 +125,162 @@ $fsSubmision = new FSSubmission($token, $baseUrl);
 $fsFolder = new FSFolder($token, $baseUrl);
 ```
 
+
+Example
+-------
+
+- **Working with forms**
+
+```php
+        
+        $fsForm = new FSForm();
+        
+        //get all forms available to the authenticated account
+        // API docs - https://developers.formstack.com/docs/form-get
+        $allForms = $fsForm->all();
+        
+        //create a new form
+        //see the docs for other params that can be sepcified in $body
+        // API docs - https://developers.formstack.com/docs/form-post
+        $body = ["name" => "Created by API"];
+        $newForm = $fsForm->create($body);
+              
+        $formId = $newForm["id"];
+        
+        //Getting details for a single form
+        // API Docs - https://developers.formstack.com/docs/form-id-get
+        $detail = $fsForm->get($formId);
+
+        //Updating the details of a form
+        // API Docs - https://developers.formstack.com/docs/form-id-put
+        $updatedForm = $fsForm->update($formId, ["name" => "Updated Form Name"]);
+        
+        //Deleting a form
+        // API Docs - https://developers.formstack.com/docs/form-id-delete
+        $response = $fsForm->delete($formId);
+```
+
+- **Working with Fields**
+
+```php
+
+        $fsField = new FSField();
+
+        //Getting all fields for a form
+        // API Docs - https://developers.formstack.com/docs/form-id-field-get
+        $allFields = $fsField->all($formId);
+
+        //Adding a new field to a form
+        //API Doc - https://developers.formstack.com/docs/form-id-field-post
+        $param = ["field_type" => "text", "label" => "Dev API Created Field"];
+        $field = $fsField->newField($formId, $param);
+
+        $fieldId = $field["id"];
+
+        //Details of a field
+        //API Doc - https://developers.formstack.com/docs/field-id-get
+        $fieldDetail = $fsField->get($fieldId);
+
+        //Updating the details of a field
+        //API Doc - https://developers.formstack.com/docs/field-id-put
+        $param = ["field_type" => "text", "label" => "Dev API Updated"];
+        $updatedField = $fsField->update($fieldId, $param);
+
+        //Deleting API Created field
+        //API Doc - https://developers.formstack.com/docs/field-id-delete
+        $response = $fsField->delete($fieldId);
+```
+
+- **Working with Submissions**
+
+Submitting a form is straightforward but can be tricky.
+First get the id for all the fields of the form you want to submit to.
+You can do this with the FSField object (as shown above) 
+and store the response somewhere you can reference them later.
+
+Then you can proceed to build your data arrray and submit the form as demonstrated below.
+
+```php
+    
+        $fsSubmission = new FSSubmission();
+
+        //Submitting to a Form
+        //note that you must prefix the field id with "field_x"
+        //where x is the id of the field.
+        //API Doc - https://developers.formstack.com/docs/form-id-submission-post 
+        
+        $data = [
+            "field_0123943" => "Demo Field Value",
+        ];
+        $response = $fsSubmission->newSubmission($formId, $data);
+
+        //Counting all Submissions to a Form
+        //API Doc - https://developers.formstack.com/docs/form-id-submission-get
+        
+        $allSubmissions = $fsSubmission->all($formId);
+       
+       
+        //Getting Details of a Single Submission entry
+        //e.g. $submissionId = $allSubmissions["submissions"][0]["id"];
+        //API Doc - https://developers.formstack.com/docs/submission-id-get
+         
+        $fsSubmission->get($submissionId);
+
+        //Updating a Submission
+        //API Doc - https://developers.formstack.com/docs/submission-id-put
+        $data = [
+            "field_".$fieldId => "Demo Organization Updated",
+        ];
+        $updatedSubmission = $fsSubmission->update($submissionId, $data);
+
+        //Deleting a Submission
+        //API Doc - https://developers.formstack.com/docs/submission-id-delete
+        $fsSubmission->delete($submissionId);
+
+```
+
+
+
+- **Working with Folders**
+    
+```php
+    
+            $fsFolder = new FSFolder();
+    
+            //All folders for the authenticated user
+            //API Doc - https://developers.formstack.com/docs/folder-get
+            $allFolders = $fsFolder->all();
+    
+            //create a new folder
+            //API Doc - https://developers.formstack.com/docs/folder-post
+            $newFolder = $fsFolder->newFolder("Dev Folder");
+    
+            //Details of a folder    
+            //e.g. $folderId = $newFolder["id"];
+            //API Doc - https://developers.formstack.com/docs/folder-id-get
+            $folderDetails = $fsFolder->get($folderId);
+    
+            //Updating a folder details    
+            //API Doc - https://developers.formstack.com/docs/folder-id-put
+            $updatedFolder = $fsFolder->update($folderId, $newFolderName));
+    
+            //Deleting a folder
+            //API Doc - https://developers.formstack.com/docs/folder-id-delete
+            $delResponse = $fsFolder->delete($folderId);
+
+```
+
+
 Exceptions
 -----------
 You can wrap the method calls in a `try...catch` block to catch:
 - `GuzzleHttp\Exception\RequestException`
 - `FSExceptions\FSException`
 
+All exceptions to API calls are caught by `GuzzleHttp\Exception\RequestException`
 
-Tests for Devs
---------------
+Tests
+-----
 `PHPUnit` is used for testing and the test files are located in tests dir.
 If you fork/clone the repo and will like to run the tests. 
 
@@ -118,91 +291,12 @@ following command from the root dir of the package to run the tests.
 "./vendor/bin/phpunit"
 ```
 
-
-FormStack Object Instantiation
-------------------------------
-
-
-
-
-FormStack Client
-----------------
-`FSClient` is the superclass for all other classes in the package.
-
-It has a constructor that accepts optional parameters: 
-$token - The API Access token from Formstack dashboard,
-$baseUrl - The baseUrl of the formstack api. Default is "https://www.formstack.com/api/v2/"
-$xmlResponseType - a boolean indicating the response type to expect from the API. Default is `false`
-
-Other API Objects - Forms, Submissions, Fields, Webhooks, have classes that modelled them. Those classes
- extends FSClient class and have the same constructor.
- 
-So you can instantiate the FSForm class this way:
-
-```php
-$fsForm = new FSForm($token);
-
-//if you have set the access_token and base_url variable in the config file
-//you can just do this:
-
-$fsForm = new FSForm();
-
-``` 
-
-Same applies to other classes
-
-
-FormStack Form
---------------
- 
- The FormStack Form is modelled by the `FSForm.php` class that has methods for 
- accessing and manipulating forms via the API.
- 
- For example:
- ```php
-$fsForm = new FSForm();
-
-//get all available forms
-$fsForm->all();
-
-//get details of a form
-$resp = $fsForm->get($formId);
-
-//create a new form
-//$param is an array of options/properties for the form
-//it must have a "name" key else, FSException will be thrown
-$param = ["name" => "Demo Form"];
-$resp1 = $fsForm->create($param);
-
-
-//to update the details of a form
-$resp2 = $fsForm->update($formId, $param);
-
-//to delete a form
-$resp3 = $fsForm->delete($formId);
-
-```
-
-
-FormStack Submissions
----------------------
-The FormStack Submission is modelled by the `FSSubmission.php` class that has methods for 
- accessing and manipulating forms via the API.
- 
- ```php
-//create an instance
-$fsSubmission = new FSSubmission();
-
-//to get all submisions for a Form call this method
-//it takes an optional parameter of $query which is an assoc array of constraints 
-//that can be applied to the query.
-$resp = $fsSubmission->all($formId);
-
-
-//to submit a new data to a particular form use
-$resp = $fsSubmission->newSubmission($formId, $data);
-
-```
+API Components Not Covered
+--------------------------
+- Partial Submissions
+- Confirmation Emails
+- Notification Emails
+- Webhooks
 
 
 Reference
@@ -216,7 +310,7 @@ Seun Matt: on twitter [@SeunMatt2](https://twitter.com/SeunMatt2/)
 
 Contributing
 ============
-just create a PR with your update.
+Found a bug? Wanna Implement a missing feature? Or you have a suggestion or two; just create an issue and we can start from there.
 **Remember to Star this repo and watch it for changes. Thank you**
  
 LICENSE
