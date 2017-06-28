@@ -294,9 +294,8 @@ Seun Matt: on twitter [@SeunMatt2](https://twitter.com/SeunMatt2/)
 
 Contributing
 ============
-Found a bug? Wanna Implement a missing feature? Or you have a suggestion or two; just create an issue and we can start from there.
-**Remember to Star this repo and watch it for changes. Thank you**
+[READ ABOUT CONTRIBUTING HERE](CONTRIBUTING.md)
  
 LICENSE
 =======
-MIT
+[MIT](LICENSE)
