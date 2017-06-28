@@ -287,6 +287,8 @@ If you fork/clone the repo and will like to run the tests.
 First, ensure you have set up the config as specified above, then run the 
 following command from the root dir of the package to run the tests.
 
+*It will be a good idea to have an `access_token` to an account that has not reach its limit for number of forms creation.*
+
 ```
 "./vendor/bin/phpunit"
 ```

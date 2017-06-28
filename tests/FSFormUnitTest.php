@@ -9,6 +9,7 @@
 namespace Tests;
 
 
+use FormStack\FSClient;
 use FormStack\FSField;
 use FormStack\FSForm;
 use FormStack\FSSubmission;
