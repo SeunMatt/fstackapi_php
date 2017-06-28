@@ -8,25 +8,7 @@ Compatible with Laravel.
 Installation
 ============
 
-From Github repo
-----------------
-Add this to your composer.json file and the run `composer update`
-
-```json
-    "require": {
-        "seunmatt/fstackapi_php": "dev-master"
-    },
-    "repositories": [
-            {
-                "type": "git",
-                "url": "https://github.com/SeunMatt/fstackapi_php.git"
-            }
-    ]
-```
-
-From Packagist
---------------
-It is not yet on packagist - coming very soon
+`composer require seunmatt/fstackapi_php`
 
 Laravel
 -------
