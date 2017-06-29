@@ -1,5 +1,7 @@
 fstackapi_php
 =============
+[![Build Status](https://travis-ci.org/SeunMatt/fstackapi_php.svg?branch=master)](https://travis-ci.org/SeunMatt/fstackapi_php)
+
 This is a convenient PHP wrapper for Formstack's REST API v2. 
 Compatible with Laravel.
 
