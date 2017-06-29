@@ -107,8 +107,8 @@ class FSFormUnitTest extends TestCase {
            print("\nDeleting API created form\n");
            print_r($fsForm->delete($formId));
 
-       }catch (RequestException $e) {
-           print_r($e->getResponse()->getBody());
+       } catch (RequestException $e) {
+           print($e->getResponse()->getBody());
        }
 
     }
