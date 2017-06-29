@@ -20,9 +20,14 @@ class ConfigHelper {
                 "base_url" => "https://www.formstack.com/api/v2/"
                 ];
         }
+        else if(function_exists("config")) {
 
-        //if not set in the env, try looking for a config file
-        if(!file_exists(realpath("./formstack.php")) ) {
+            return [
+                "access_token" => config("formstack.access_token"),
+                "base_url" => config("formstack.base_url")
+            ];
+        }
+        else if(!file_exists(realpath("./formstack.php")) ) {
             throw new \Exception("ERROR: config file [formstack.php] not found in package root's dir. 
             \nFile is expected here in this dir:
             ". realpath ( "."));

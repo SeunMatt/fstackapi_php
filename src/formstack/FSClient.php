@@ -21,13 +21,19 @@ class FSClient
     protected $client;
     protected $xmlResponseType;
 
+    /**
+     * FSClient constructor.
+     * @param null $token
+     * @param null $baseUrl
+     * @param bool $xmlResponseType
+     */
     protected function __construct($token = null, $baseUrl = null, $xmlResponseType = false) {
 
         if(is_null($token)) {
-            $token = function_exists("config") ? config("formstack.access_token") : ConfigHelper::config()["access_token"];
+            $token = ConfigHelper::config()["access_token"];
         }
         if(is_null($baseUrl))  {
-            $baseUrl = function_exists("config") ? config("formstack.base_url") : ConfigHelper::config()["base_url"];
+            $baseUrl = ConfigHelper::config()["base_url"];
         }
 
         $this->token = $token;

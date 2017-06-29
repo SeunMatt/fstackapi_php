@@ -63,8 +63,11 @@ create a formstack.php at the root dir of the package with the following content
  
  ?>
  ```
+  
+- Finally, you can put `access_token` in the environment for use. In which case, the default `base_url` will be used.
  
-It is from this file that the `ConfigHelper` class will read the config token from by default.
+ The `ConfigHelper` class will read the configuration first from the env, then try the Laravel config helper,
+ and finally try the config file in root dir of package.
 
 
 FormStack Object Instantiation
